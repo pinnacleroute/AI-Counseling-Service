@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serenity Support AI — Compassionate Counseling & Personal Support</title>
+<style>
+/* =============================================
+   SERENITY SUPPORT AI — Design System
+   ============================================= */
+:root {
+  --ivory:    #FAF8F4;
+  --white:    #FFFFFF;
+  --sage:     #8FAF8A;
+  --sage-lt:  #C6D9C4;
+  --slate:    #7B9BB2;
+  --slate-lt: #C4D8E6;
+  --lavender: #B8A9C9;
+  --lav-lt:   #E5DFEE;
+  --blush:    #E8B4A0;
+  --charcoal: #2D3340;
+  --body:     #4A5260;
+  --muted:    #8A92A0;
+  --border:   #E8E4DC;
+  --shadow:   0 4px 24px rgba(45,51,64,0.08);
+  --shadow-md:0 8px 40px rgba(45,51,64,0.12);
+  --radius:   16px;
+  --radius-sm:10px;
+  --radius-lg:24px;
+  font-size: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--ivory);
+  color: var(--body);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ---- TYPOGRAPHY ---- */
+h1, h2, h3, h4 {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--charcoal);
+  line-height: 1.25;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; }
+h3 { font-size: 1.2rem; font-weight: 600; }
+h4 { font-size: 1rem; font-weight: 600; }
+p  { color: var(--body); }
+a  { color: inherit; text-decoration: none; }
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+/* ---- LAYOUT ---- */
+.container { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+.section    { padding: 6rem 0; }
+.section-alt { background: var(--white); }
+.grid-2    { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+.grid-3    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+.grid-4    { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 50px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--sage) 0%, #6A9E7A 100%);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(143,175,138,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(143,175,138,0.45); }
+.btn-outline {
+  background: transparent;
+  color: var(--charcoal);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--sage); color: var(--sage); background: rgba(143,175,138,0.06); }
+.btn-slate {
+  background: linear-gradient(135deg, var(--slate) 0%, #5A8BAA 100%);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(123,155,178,0.3);
+}
+.btn-slate:hover { transform: translateY(-2px); }
+.btn-sm { padding: 0.5rem 1.1rem; font-size: 0.83rem; }
+.btn-full { width: 100%; justify-content: center; }
+
+/* ---- CARDS ---- */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(232,228,220,0.6);
+}
+.card-soft {
+  background: var(--ivory);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+}
+
+/* ---- TAGS ---- */
+.tag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.28rem 0.75rem;
+  border-radius: 50px;
+  background: var(--lav-lt);
+  color: #6B5A8A;
+}
+.tag-sage  { background: rgba(143,175,138,0.18); color: #4A7A50; }
+.tag-slate { background: rgba(123,155,178,0.15); color: #3A6E8C; }
+.tag-blush { background: rgba(232,180,160,0.2);  color: #8C4A30; }
+
+/* ==========================================
+   NAVIGATION
+   ========================================== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  background: rgba(250,248,244,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: 0 2px 20px rgba(45,51,64,0.08); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1160px; margin: 0 auto; padding: 0 1.5rem;
+  height: 68px;
+}
+.nav-logo {
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.nav-logo-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), var(--slate));
+}
+.nav-links {
+  display: flex; align-items: center; gap: 0.25rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--body);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover { color: var(--sage); background: rgba(143,175,138,0.08); }
+.nav-cta { margin-left: 0.5rem; }
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 6px;
+}
+.hamburger span {
+  width: 22px; height: 2px;
+  background: var(--charcoal);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed; top: 68px; left: 0; right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 1.5rem 1.5rem;
+  z-index: 899;
+  box-shadow: var(--shadow-md);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block;
+  padding: 0.65rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--body);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu .btn { margin-top: 1rem; }
+
+/* ==========================================
+   HERO
+   ========================================== */
+.hero {
+  min-height: 100vh;
+  padding: 9rem 1.5rem 6rem;
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center;
+  background: linear-gradient(160deg, #F5F2EC 0%, #EDF2F7 50%, #EDE8F2 100%);
+}
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  top: -150px; right: -150px;
+  background: radial-gradient(circle, rgba(143,175,138,0.18) 0%, transparent 70%);
+  animation: breathe 8s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  bottom: -100px; left: -80px;
+  background: radial-gradient(circle, rgba(184,169,201,0.2) 0%, transparent 70%);
+  animation: breathe 10s ease-in-out infinite reverse;
+}
+.hero-orb-3 {
+  width: 300px; height: 300px;
+  top: 40%; left: 40%;
+  background: radial-gradient(circle, rgba(123,155,178,0.12) 0%, transparent 70%);
+  animation: breathe 12s ease-in-out infinite 2s;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%       { transform: scale(1.12); opacity: 1; }
+}
+.hero-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem; align-items: center;
+  position: relative; z-index: 1;
+  width: 100%;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(143,175,138,0.15);
+  border: 1px solid rgba(143,175,138,0.3);
+  border-radius: 50px;
+  padding: 0.35rem 1rem 0.35rem 0.5rem;
+  font-size: 0.78rem; font-weight: 600; color: #4A7A50;
+  margin-bottom: 1.5rem;
+}
+.hero-badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--sage);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(143,175,138,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(143,175,138,0); }
+}
+.hero h1 { margin-bottom: 1.25rem; }
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--sage) 0%, var(--slate) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.08rem; color: var(--body);
+  max-width: 540px; margin-bottom: 2rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.hero-trust {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+}
+.trust-pill {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem; font-weight: 600; color: var(--body);
+  backdrop-filter: blur(4px);
+}
+.trust-pill-icon { font-size: 0.85rem; }
+
+/* Hero right card */
+.hero-right { display: flex; flex-direction: column; gap: 1.25rem; }
+.session-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: 0 12px 48px rgba(45,51,64,0.12);
+  border: 1px solid rgba(232,228,220,0.5);
+}
+.session-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.session-card-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.session-status {
+  font-size: 0.72rem; font-weight: 700;
+  padding: 0.25rem 0.7rem; border-radius: 50px;
+  background: rgba(143,175,138,0.2); color: #3A7040;
+}
+.therapist-row {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;
+}
+.therapist-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage-lt), var(--slate-lt));
+  display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.1rem; font-weight: 700; color: var(--charcoal);
+  flex-shrink: 0;
+}
+.therapist-name { font-size: 0.97rem; font-weight: 700; color: var(--charcoal); }
+.therapist-role { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+.session-detail {
+  background: var(--ivory);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem;
+  display: flex; flex-direction: column; gap: 0.55rem;
+}
+.session-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.84rem;
+}
+.session-label { color: var(--muted); }
+.session-value { font-weight: 600; color: var(--charcoal); }
+.mini-stat-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.mini-stat {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.mini-stat-num { font-size: 1.5rem; font-weight: 700; font-family: Georgia, serif; color: var(--charcoal); }
+.mini-stat-lbl { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+/* ==========================================
+   PROBLEM SECTION
+   ========================================== */
+.problem-section { background: var(--charcoal); }
+.problem-section h2 { color: var(--white); }
+.problem-section .eyebrow { color: var(--sage-lt); }
+.problem-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.problem-item {
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  position: relative;
+}
+.problem-icon { font-size: 1.75rem; margin-bottom: 0.75rem; display: block; }
+.problem-item h4 { color: var(--white); margin-bottom: 0.5rem; font-size: 0.95rem; }
+.problem-item p  { color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.55; }
+.problem-solution {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(143,175,138,0.15), rgba(123,155,178,0.15));
+  border: 1px solid rgba(143,175,138,0.25);
+  text-align: center;
+}
+.problem-solution p { color: rgba(255,255,255,0.75); font-size: 1.05rem; }
+.problem-solution strong { color: var(--sage-lt); }
+
+/* ==========================================
+   SERVICES
+   ========================================== */
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.75rem; margin-top: 3rem;
+}
+.service-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+}
+.service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.service-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 1.25rem;
+}
+.si-sage    { background: rgba(143,175,138,0.18); }
+.si-slate   { background: rgba(123,155,178,0.18); }
+.si-lav     { background: rgba(184,169,201,0.2);  }
+.si-blush   { background: rgba(232,180,160,0.2);  }
+.si-charcoal{ background: rgba(45,51,64,0.08);    }
+.service-card h3 { margin-bottom: 0.6rem; font-size: 1.1rem; }
+.service-card p  { font-size: 0.88rem; color: var(--muted); flex: 1; }
+.service-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 1.25rem 0 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.service-duration { font-size: 0.8rem; color: var(--muted); }
+.service-price { font-size: 1.1rem; font-weight: 700; color: var(--charcoal); font-family: Georgia, serif; }
+.service-price span { font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+
+/* ==========================================
+   HOW IT WORKS
+   ========================================== */
+.steps-wrapper { margin-top: 3.5rem; position: relative; }
+.steps-line {
+  position: absolute; top: 40px; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--sage-lt), var(--slate-lt), var(--lav-lt));
+  z-index: 0;
+}
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; position: relative; z-index: 1; }
+.step-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.step-num {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-size: 1.2rem; font-weight: 700;
+  margin: 0 auto 1.25rem;
+}
+.sn-1 { background: rgba(143,175,138,0.2); color: #4A7A50; }
+.sn-2 { background: rgba(123,155,178,0.2); color: #3A6E8C; }
+.sn-3 { background: rgba(184,169,201,0.2); color: #6B5A8A; }
+.sn-4 { background: rgba(232,180,160,0.2); color: #8C4A30; }
+.step-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+.step-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+.step-card p  { font-size: 0.83rem; color: var(--muted); }
+
+/* ==========================================
+   AI SUPPORT SECTION
+   ========================================== */
+.ai-section { background: linear-gradient(160deg, #F0EDF8 0%, #EAF2EF 100%); }
+.ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.ai-capabilities { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.ai-cap-item {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  padding: 1rem 1.1rem;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 12px rgba(45,51,64,0.06);
+  border: 1px solid rgba(184,169,201,0.3);
+}
+.ai-cap-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.ai-cap-text { font-size: 0.88rem; color: var(--body); }
+.ai-crisis {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(232,180,160,0.15);
+  border-left: 3px solid var(--blush);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.83rem; color: #7A3A20;
+}
+.ai-crisis strong { display: block; margin-bottom: 0.25rem; }
+/* Chat mockup */
+.chat-mockup {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+.chat-header {
+  background: linear-gradient(135deg, var(--slate) 0%, #5A8BAA 100%);
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.chat-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.chat-header-name { font-weight: 700; color: var(--white); font-size: 0.95rem; }
+.chat-header-status { font-size: 0.73rem; color: rgba(255,255,255,0.7); }
+.chat-status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #7FE0A0;
+  display: inline-block; margin-right: 0.3rem;
+  animation: pulse 2s infinite;
+}
+.chat-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; max-height: 360px; overflow-y: auto; }
+.chat-msg {
+  display: flex; gap: 0.65rem;
+  max-width: 90%;
+}
+.chat-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.chat-bubble {
+  background: var(--ivory);
+  border-radius: 14px 14px 14px 4px;
+  padding: 0.7rem 0.95rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+.chat-msg.user .chat-bubble {
+  background: linear-gradient(135deg, var(--sage) 0%, #6A9E7A 100%);
+  color: var(--white);
+  border-radius: 14px 14px 4px 14px;
+}
+.chat-msg-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--slate-lt), var(--lav-lt));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: var(--charcoal);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.chat-user-avatar { background: linear-gradient(135deg, var(--sage-lt), #B8D8B8); }
+.chat-disclaimer { font-size: 0.72rem; color: var(--muted); text-align: center; padding: 0.5rem 1.25rem 1rem; border-top: 1px solid var(--border); }
+
+/* ==========================================
+   THERAPISTS
+   ========================================== */
+.therapist-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.therapist-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.therapist-card .avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  margin: 0 auto 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-size: 1.5rem; font-weight: 700; color: var(--charcoal);
+}
+.av-1 { background: linear-gradient(135deg, var(--sage-lt), #A8C8A8); }
+.av-2 { background: linear-gradient(135deg, var(--slate-lt), #A8C4DA); }
+.av-3 { background: linear-gradient(135deg, var(--lav-lt), #C8B8D8); }
+.therapist-card h3 { margin-bottom: 0.25rem; }
+.therapist-credential { font-size: 0.8rem; color: var(--sage); font-weight: 600; margin-bottom: 0.75rem; }
+.therapist-spec { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+.therapist-meta { display: flex; justify-content: center; gap: 1.25rem; margin-bottom: 1.5rem; }
+.t-meta-item { font-size: 0.78rem; color: var(--muted); }
+.t-meta-value { display: block; font-size: 0.9rem; font-weight: 600; color: var(--charcoal); }
+
+/* ==========================================
+   BOOKING FORM
+   ========================================== */
+.booking-section { background: linear-gradient(160deg, #EDF2F7 0%, #F0EDF8 100%); }
+.booking-inner { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
+.form-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group.full { grid-column: 1 / -1; }
+label { font-size: 0.82rem; font-weight: 600; color: var(--charcoal); }
+input, select, textarea {
+  padding: 0.7rem 0.95rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--charcoal);
+  background: var(--ivory);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(143,175,138,0.2);
+}
+textarea { resize: vertical; min-height: 90px; }
+.time-slots { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+.time-slot {
+  padding: 0.45rem 1rem;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  font-size: 0.83rem; font-weight: 600; color: var(--body);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--white);
+}
+.time-slot:hover, .time-slot.selected {
+  border-color: var(--sage); color: var(--sage);
+  background: rgba(143,175,138,0.1);
+}
+.session-types { display: flex; gap: 0.75rem; }
+.session-type {
+  flex: 1; padding: 0.65rem 0.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  cursor: pointer; font-size: 0.83rem; font-weight: 600; color: var(--body);
+  transition: all 0.2s;
+}
+.session-type:hover, .session-type.selected {
+  border-color: var(--slate); color: var(--slate);
+  background: rgba(123,155,178,0.08);
+}
+.booking-summary {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  position: sticky; top: 90px;
+}
+.summary-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+.summary-line {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.summary-line:last-of-type { border-bottom: none; }
+.summary-label { color: var(--muted); }
+.summary-value { font-weight: 600; color: var(--charcoal); }
+.summary-total {
+  padding: 1rem;
+  background: var(--ivory);
+  border-radius: var(--radius-sm);
+  display: flex; justify-content: space-between;
+  margin-top: 0.75rem;
+}
+.summary-total-label { font-weight: 700; color: var(--charcoal); }
+.summary-total-val { font-size: 1.3rem; font-weight: 700; font-family: Georgia, serif; color: var(--charcoal); }
+.progress-bar {
+  display: flex; gap: 0; margin-bottom: 2rem;
+  border-radius: 50px; overflow: hidden; background: var(--border);
+}
+.progress-step {
+  flex: 1; padding: 0.5rem 0.75rem;
+  text-align: center;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--muted);
+  transition: all 0.3s;
+}
+.progress-step.active { background: var(--sage); color: var(--white); }
+.progress-step.done   { background: var(--sage-lt); color: #4A7A50; }
+.form-section-hidden { display: none; }
+
+/* ==========================================
+   INTAKE FORM
+   ========================================== */
+.intake-disclaimer {
+  background: rgba(232,180,160,0.15);
+  border-left: 3px solid var(--blush);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.83rem; color: #7A3A20;
+  margin-bottom: 1.5rem;
+}
+.consent-row { display: flex; align-items: flex-start; gap: 0.75rem; }
+.consent-row input[type="checkbox"] {
+  width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0;
+  cursor: pointer;
+}
+.consent-row label { font-size: 0.84rem; color: var(--body); font-weight: 400; }
+
+/* ==========================================
+   PAYMENT SECTION
+   ========================================== */
+.payment-section { background: var(--white); }
+.payment-inner { max-width: 780px; margin: 0 auto; }
+.payment-methods { display: flex; gap: 0.75rem; margin-bottom: 1.75rem; }
+.payment-method {
+  flex: 1; padding: 0.85rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center; cursor: pointer;
+  transition: all 0.2s; font-size: 0.88rem; font-weight: 600; color: var(--body);
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.payment-method:hover, .payment-method.selected {
+  border-color: var(--sage); color: var(--sage);
+  background: rgba(143,175,138,0.07);
+}
+.card-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.25rem; }
+.card-number-field { grid-column: 1 / -1; }
+.payment-demo-notice {
+  display: flex; align-items: center; gap: 0.65rem;
+  background: rgba(123,155,178,0.12);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.1rem;
+  font-size: 0.83rem; color: #3A6E8C;
+  margin-bottom: 1.5rem;
+}
+.payment-summary-box {
+  background: var(--ivory);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--border);
+}
+.pay-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.9rem; }
+.pay-row.total { font-weight: 700; font-size: 1.05rem; border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 0.75rem; }
+
+/* ==========================================
+   CONFIRMATION
+   ========================================== */
+.confirm-section { background: linear-gradient(160deg, #EAF2EF 0%, #EDF2F7 100%); }
+.confirm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.confirm-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.confirm-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+}
+.ci-green  { background: rgba(143,175,138,0.2); }
+.ci-blue   { background: rgba(123,155,178,0.2); }
+.ci-purple { background: rgba(184,169,201,0.2); }
+.ci-blush  { background: rgba(232,180,160,0.2); }
+.confirm-card h4 { margin-bottom: 0.35rem; }
+.confirm-card p  { font-size: 0.83rem; color: var(--muted); }
+.main-confirm-message {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(143,175,138,0.3);
+  text-align: center; margin-top: 3rem;
+}
+.main-confirm-icon {
+  width: 70px; height: 70px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), #6A9E7A);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.75rem; margin: 0 auto 1.25rem;
+}
+.main-confirm-message h3 { margin-bottom: 0.75rem; }
+.main-confirm-message p  { color: var(--body); max-width: 480px; margin: 0 auto; }
+
+/* ==========================================
+   TESTIMONIALS
+   ========================================== */
+.testimonials-section { background: var(--charcoal); }
+.testimonials-section h2 { color: var(--white); }
+.testimonials-section .eyebrow { color: var(--sage-lt); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.testimonial-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+.testimonial-stars { color: #F0C040; font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+.testimonial-text { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.65; font-style: italic; margin-bottom: 1.25rem; }
+.testimonial-author {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.author-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 700; color: var(--charcoal);
+  flex-shrink: 0;
+}
+.author-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+.author-tag  { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+/* ==========================================
+   TRUST SECTION
+   ========================================== */
+.trust-section { background: var(--white); }
+.trust-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.trust-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.trust-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+  background: var(--ivory);
+}
+.trust-item h4 { margin-bottom: 0.3rem; font-size: 0.9rem; }
+.trust-item p  { font-size: 0.82rem; color: var(--muted); }
+.trust-statement {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--ivory);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--sage);
+  font-size: 0.95rem; color: var(--body);
+}
+
+/* ==========================================
+   FAQ
+   ========================================== */
+.faq-list { max-width: 740px; margin: 3rem auto 0; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 0;
+  font-size: 0.97rem; font-weight: 600; color: var(--charcoal);
+  text-align: left; gap: 1rem;
+}
+.faq-q:hover { color: var(--sage); }
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ivory);
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--muted); flex-shrink: 0;
+  transition: all 0.3s;
+}
+.faq-item.open .faq-icon { background: var(--sage); border-color: var(--sage); color: var(--white); transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  font-size: 0.9rem; color: var(--body);
+}
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 1.25rem; }
+
+/* ==========================================
+   CONTACT
+   ========================================== */
+.contact-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.75rem; }
+.contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+.contact-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(143,175,138,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.contact-item h4 { margin-bottom: 0.15rem; font-size: 0.88rem; }
+.contact-item p  { font-size: 0.85rem; color: var(--muted); }
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+footer {
+  background: var(--charcoal);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner { max-width: 1160px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 2.5rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-logo {
+  font-family: Georgia, serif; font-size: 1.1rem; font-weight: 700; color: var(--white);
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem;
+}
+.footer-desc { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+.footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+.footer-col a { display: block; color: rgba(255,255,255,0.6); font-size: 0.87rem; margin-bottom: 0.6rem; transition: color 0.2s; }
+.footer-col a:hover { color: var(--sage-lt); }
+.footer-emergency {
+  margin-top: 1.5rem;
+  padding: 0.85rem 1rem;
+  background: rgba(232,180,160,0.12);
+  border: 1px solid rgba(232,180,160,0.25);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+}
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 2rem;
+  font-size: 0.8rem; color: rgba(255,255,255,0.3);
+}
+.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
+.footer-bottom-links a:hover { color: var(--sage-lt); }
+
+/* ==========================================
+   FLOATING CHAT WIDGET
+   ========================================== */
+.chat-widget {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 1000;
+}
+.chat-btn {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--slate), #5A8BAA);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; color: var(--white);
+  box-shadow: 0 6px 24px rgba(123,155,178,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.chat-btn:hover { transform: scale(1.08); box-shadow: 0 10px 32px rgba(123,155,178,0.5); }
+.chat-badge {
+  position: absolute; top: -4px; right: -4px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--blush); color: var(--white);
+  font-size: 0.65rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--white);
+}
+.chat-panel {
+  display: none;
+  width: 360px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 64px rgba(45,51,64,0.18);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: absolute; bottom: 70px; right: 0;
+  animation: slideUp 0.25s ease;
+}
+.chat-panel.open { display: flex; flex-direction: column; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.chat-panel-header {
+  background: linear-gradient(135deg, var(--slate), #5A8BAA);
+  padding: 1rem 1.1rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.chat-panel-title { color: var(--white); font-weight: 700; font-size: 0.95rem; }
+.chat-panel-sub { color: rgba(255,255,255,0.7); font-size: 0.73rem; }
+.chat-close {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 1.2rem; padding: 0.2rem;
+  transition: color 0.2s;
+}
+.chat-close:hover { color: var(--white); }
+.chat-messages {
+  flex: 1; padding: 1.1rem;
+  overflow-y: auto; max-height: 280px;
+  display: flex; flex-direction: column; gap: 0.85rem;
+}
+.chat-message {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+}
+.chat-message.user-msg { flex-direction: row-reverse; }
+.chat-message-text {
+  background: var(--ivory);
+  border-radius: 12px 12px 12px 4px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.84rem; color: var(--body);
+  max-width: 80%; line-height: 1.5;
+}
+.user-msg .chat-message-text {
+  background: linear-gradient(135deg, var(--sage), #6A9E7A);
+  color: var(--white);
+  border-radius: 12px 12px 4px 12px;
+}
+.chat-msg-av {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--slate-lt), var(--lav-lt));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; flex-shrink: 0; margin-top: 2px;
+}
+.chat-user-av { background: linear-gradient(135deg, var(--sage-lt), #B8D8B8); }
+.chat-quick-btns {
+  padding: 0.75rem 1.1rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  background: var(--ivory);
+}
+.quick-btn {
+  padding: 0.35rem 0.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  font-size: 0.75rem; font-weight: 600; color: var(--body);
+  background: var(--white); cursor: pointer;
+  transition: all 0.2s;
+}
+.quick-btn:hover { border-color: var(--slate); color: var(--slate); }
+.chat-input-row {
+  display: flex; gap: 0.5rem;
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid var(--border);
+}
+.chat-input-row input {
+  flex: 1; padding: 0.55rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.84rem;
+}
+.chat-send {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--slate); border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--white); font-size: 0.9rem;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.chat-send:hover { background: #5A8BAA; }
+.chat-crisis-note {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.72rem; color: #8C4A30;
+  background: rgba(232,180,160,0.1);
+  border-top: 1px solid rgba(232,180,160,0.2);
+  text-align: center;
+}
+
+/* ==========================================
+   SUCCESS OVERLAY
+   ========================================== */
+.success-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(45,51,64,0.6);
+  backdrop-filter: blur(6px);
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.success-overlay.open { display: flex; }
+.success-box {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  max-width: 520px; width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(45,51,64,0.2);
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.success-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage), #5A9E6A);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin: 0 auto 1.5rem;
+}
+.success-box h2 { margin-bottom: 0.75rem; }
+.success-box p { margin-bottom: 0.4rem; font-size: 0.9rem; color: var(--muted); }
+.success-details {
+  background: var(--ivory);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+.success-detail-row {
+  display: flex; justify-content: space-between;
+  font-size: 0.87rem; padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.success-detail-row:last-child { border-bottom: none; }
+.success-detail-row span:first-child { color: var(--muted); }
+.success-detail-row span:last-child  { font-weight: 600; color: var(--charcoal); }
+
+/* ==========================================
+   SECTION HEADERS (shared)
+   ========================================== */
+.section-header { text-align: center; max-width: 640px; margin: 0 auto; }
+.section-header p { margin-top: 0.85rem; font-size: 1rem; color: var(--muted); }
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 960px) {
+  .hero-inner   { grid-template-columns: 1fr; }
+  .hero-right   { display: none; }
+  .grid-2       { grid-template-columns: 1fr; }
+  .ai-inner     { grid-template-columns: 1fr; }
+  .booking-inner{ grid-template-columns: 1fr; }
+  .contact-inner{ grid-template-columns: 1fr; }
+  .footer-top   { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .steps-grid   { grid-template-columns: 1fr 1fr; }
+  .steps-line   { display: none; }
+}
+@media (max-width: 720px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .grid-3    { grid-template-columns: 1fr; }
+  .grid-4    { grid-template-columns: 1fr 1fr; }
+  .steps-grid{ grid-template-columns: 1fr; }
+  .footer-top{ grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .payment-methods { flex-direction: column; }
+  .chat-panel { width: 300px; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+@media (max-width: 480px) {
+  .hero        { padding: 8rem 1rem 4rem; }
+  .section     { padding: 4rem 0; }
+  .hero-btns   { flex-direction: column; }
+  .hero-trust  { display: none; }
+  .mini-stat-row { display: none; }
+  .chat-panel  { width: 280px; right: -10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==========================================
+     NAVIGATION
+     ========================================== -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <span class="nav-logo-dot"></span>
+      Serenity Support AI
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#ai-support">AI Support</a></li>
+      <li><a href="#booking">Book Appointment</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#booking" class="btn btn-primary btn-sm nav-cta">Book a Session</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home"       onclick="closeMobileMenu()">Home</a>
+    <a href="#services"   onclick="closeMobileMenu()">Services</a>
+    <a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+    <a href="#ai-support" onclick="closeMobileMenu()">AI Support</a>
+    <a href="#booking"    onclick="closeMobileMenu()">Book Appointment</a>
+    <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+    <a href="#faq"        onclick="closeMobileMenu()">FAQ</a>
+    <a href="#contact"    onclick="closeMobileMenu()">Contact</a>
+    <a href="#booking" class="btn btn-primary btn-sm btn-full" onclick="closeMobileMenu()">Book a Session</a>
+  </div>
+</nav>
+
+<!-- ==========================================
+     HERO
+     ========================================== -->
+<section class="hero" id="home">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Now accepting new clients
+      </div>
+      <h1>Compassionate Counseling &amp; <em>Personal Support</em>, Powered by Smart Digital Care</h1>
+      <p class="hero-sub">A professional online platform for therapy, emotional wellness, and personal support — with appointment booking, secure payments, private intake forms, and AI-guided assistance.</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn btn-primary">📅 Book a Consultation</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-pill"><span class="trust-pill-icon">🔒</span>Confidential &amp; Secure</span>
+        <span class="trust-pill"><span class="trust-pill-icon">📱</span>Online Booking</span>
+        <span class="trust-pill"><span class="trust-pill-icon">✨</span>AI-Guided Support</span>
+        <span class="trust-pill"><span class="trust-pill-icon">📋</span>Private Intake</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="session-card">
+        <div class="session-card-header">
+          <span class="session-card-title">Upcoming Session</span>
+          <span class="session-status">✓ Confirmed</span>
+        </div>
+        <div class="therapist-row">
+          <div class="therapist-avatar">MR</div>
+          <div>
+            <div class="therapist-name">Dr. Maya Reynolds</div>
+            <div class="therapist-role">Licensed Counselor · LMHC</div>
+          </div>
+        </div>
+        <div class="session-detail">
+          <div class="session-row">
+            <span class="session-label">Service</span>
+            <span class="session-value">Anxiety &amp; Stress Support</span>
+          </div>
+          <div class="session-row">
+            <span class="session-label">Date</span>
+            <span class="session-value">Wednesday</span>
+          </div>
+          <div class="session-row">
+            <span class="session-label">Time</span>
+            <span class="session-value">4:00 PM</span>
+          </div>
+          <div class="session-row">
+            <span class="session-label">Format</span>
+            <span class="session-value">🎥 Online Video</span>
+          </div>
+        </div>
+      </div>
+      <div class="mini-stat-row">
+        <div class="mini-stat">
+          <div class="mini-stat-num">1,240+</div>
+          <div class="mini-stat-lbl">Sessions completed</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-stat-num">98%</div>
+          <div class="mini-stat-lbl">Client satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     PROBLEM SECTION
+     ========================================== -->
+<section class="section problem-section">
+  <div class="container">
+    <div class="section-header" style="text-align:center; max-width:600px; margin:0 auto 0;">
+      <span class="eyebrow">Why Serenity Support</span>
+      <h2 style="color:var(--white);">The Challenges We Solve</h2>
+      <p style="color:rgba(255,255,255,0.55); margin-top:0.85rem;">Getting the right support shouldn't feel complicated or uncertain.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-item">
+        <span class="problem-icon">🤷</span>
+        <h4>Uncertainty About Services</h4>
+        <p>Not knowing which type of support fits your situation or where to begin.</p>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">📞</span>
+        <h4>Endless Back-and-Forth</h4>
+        <p>Time-consuming phone calls and emails just to schedule a single appointment.</p>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">❓</span>
+        <h4>Unclear First-Session Expectations</h4>
+        <p>Arriving unprepared for intake or unsure what to expect from a first session.</p>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">💳</span>
+        <h4>Payment &amp; Intake Confusion</h4>
+        <p>Separate paper forms, unclear fees, and disconnected payment processes.</p>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">🔐</span>
+        <h4>Privacy &amp; Trust Concerns</h4>
+        <p>Worry about personal information being handled without care or discretion.</p>
+      </div>
+    </div>
+    <div class="problem-solution">
+      <p>Serenity Support AI offers a <strong>simple, guided, secure experience</strong> — from discovery to confirmation, all in one calm digital environment designed for your wellbeing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SERVICES
+     ========================================== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">What We Offer</span>
+      <h2>Professional Support Services</h2>
+      <p>Each service is delivered by qualified professionals focused on your comfort, progress, and emotional safety.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon si-sage">🧘</div>
+        <span class="tag tag-sage">Popular</span>
+        <h3 style="margin-top:0.75rem;">Individual Counseling</h3>
+        <p>Private one-on-one support for emotional clarity, self-awareness, and personal growth. A confidential space to explore your thoughts and feelings.</p>
+        <div class="service-meta">
+          <span class="service-duration">⏱ 50 minutes</span>
+          <span class="service-price">$85 <span>/ session</span></span>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-sm btn-full">Book Now</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon si-slate">🌊</div>
+        <h3>Anxiety &amp; Stress Support</h3>
+        <p>Practical tools and compassionate guidance to help manage overwhelming stress, anxiety, and emotional tension in daily life.</p>
+        <div class="service-meta">
+          <span class="service-duration">⏱ 50 minutes</span>
+          <span class="service-price">$85 <span>/ session</span></span>
+        </div>
+        <a href="#booking" class="btn btn-outline btn-sm btn-full">View Details</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon si-lav">💬</div>
+        <h3>Relationship Guidance</h3>
+        <p>Support for individuals or partners navigating communication challenges, trust concerns, or meaningful transitions in relationships.</p>
+        <div class="service-meta">
+          <span class="service-duration">⏱ 60 minutes</span>
+          <span class="service-price">$110 <span>/ session</span></span>
+        </div>
+        <a href="#booking" class="btn btn-outline btn-sm btn-full">View Details</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon si-sage">🌱</div>
+        <h3>Personal Growth Coaching</h3>
+        <p>Goal-focused sessions designed to help you build confidence, clarify your values, and move toward the life you want to live.</p>
+        <div class="service-meta">
+          <span class="service-duration">⏱ 45 minutes</span>
+          <span class="service-price">$75 <span>/ session</span></span>
+        </div>
+        <a href="#booking" class="btn btn-outline btn-sm btn-full">View Details</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon si-blush">🕊️</div>
+        <h3>Grief &amp; Life Transition Support</h3>
+        <p>A gentle, supportive environment to process grief, loss, major changes, or the emotional weight of life's unexpected turns.</p>
+        <div class="service-meta">
+          <span class="service-duration">⏱ 50 minutes</span>
+          <span class="service-price">$90 <span>/ session</span></span>
+        </div>
+        <a href="#booking" class="btn btn-outline btn-sm btn-full">View Details</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon si-charcoal">⚖️</div>
+        <h3>Work-Life Balance Support</h3>
+        <p>Addressing burnout, boundaries, and career stress to help you find a sustainable and fulfilling rhythm in your professional and personal life.</p>
+        <div class="service-meta">
+          <span class="service-duration">⏱ 45 minutes</span>
+          <span class="service-price">$75 <span>/ session</span></span>
+        </div>
+        <a href="#booking" class="btn btn-outline btn-sm btn-full">View Details</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     HOW IT WORKS
+     ========================================== -->
+<section class="section section-alt" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">The Process</span>
+      <h2>From First Click to Your First Session</h2>
+      <p>A clear, guided journey designed to feel simple, private, and reassuring every step of the way.</p>
+    </div>
+    <div class="steps-wrapper">
+      <div class="steps-line"></div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num sn-1">1</div>
+          <span class="step-icon">🔍</span>
+          <h3>Choose a Service</h3>
+          <p>Browse our support services or ask Serenity AI to suggest the right starting point for your needs.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num sn-2">2</div>
+          <span class="step-icon">📅</span>
+          <h3>Select Therapist &amp; Time</h3>
+          <p>Choose a licensed professional and pick a time slot that works for your schedule — online or in person.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num sn-3">3</div>
+          <span class="step-icon">📋</span>
+          <h3>Complete Intake Form</h3>
+          <p>Fill in a private, secure intake form so your therapist is fully prepared to support you from the first moment.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num sn-4">4</div>
+          <span class="step-icon">✅</span>
+          <h3>Pay &amp; Receive Confirmation</h3>
+          <p>Complete payment securely and receive an instant confirmation with your session details and a reminder.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     AI SUPPORT SECTION
+     ========================================== -->
+<section class="section ai-section" id="ai-support">
+  <div class="container">
+    <div class="ai-inner">
+      <div>
+        <span class="eyebrow">AI-Guided Assistance</span>
+        <h2>Meet Serenity AI — Your Pre-Session Guide</h2>
+        <p>Before you book, Serenity AI is here to answer your questions, explain available services, and help you choose the right appointment type — calmly and privately.</p>
+        <div class="ai-capabilities">
+          <div class="ai-cap-item">
+            <span class="ai-cap-icon">💬</span>
+            <p class="ai-cap-text">Answers general questions about services, booking steps, and what to expect</p>
+          </div>
+          <div class="ai-cap-item">
+            <span class="ai-cap-icon">🧭</span>
+            <p class="ai-cap-text">Suggests suitable service categories based on how you describe your needs</p>
+          </div>
+          <div class="ai-cap-item">
+            <span class="ai-cap-icon">📋</span>
+            <p class="ai-cap-text">Guides clients through intake form preparation and what information to have ready</p>
+          </div>
+          <div class="ai-cap-item">
+            <span class="ai-cap-icon">🔒</span>
+            <p class="ai-cap-text">Explains privacy practices and what to expect regarding confidentiality</p>
+          </div>
+          <div class="ai-cap-item">
+            <span class="ai-cap-icon">🚨</span>
+            <p class="ai-cap-text">Escalates urgent or crisis situations to appropriate professional resources immediately</p>
+          </div>
+        </div>
+        <div class="ai-crisis">
+          <strong>🚨 Crisis Disclaimer</strong>
+          If this is an emergency or you may harm yourself or others, please contact local emergency services or a crisis helpline immediately. This AI assistant cannot provide emergency support.
+        </div>
+      </div>
+      <div>
+        <div class="chat-mockup">
+          <div class="chat-header">
+            <div class="chat-avatar">✨</div>
+            <div>
+              <div class="chat-header-name">Serenity AI</div>
+              <div class="chat-header-status"><span class="chat-status-dot"></span>Here to guide you</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="chat-msg">
+              <div class="chat-msg-avatar">AI</div>
+              <div class="chat-bubble">Hi, I'm Serenity AI. I can help you understand services, booking steps, and intake preparation. I do not provide diagnosis or emergency support. How can I help you today?</div>
+            </div>
+            <div class="chat-msg user">
+              <div class="chat-msg-avatar chat-user-avatar">U</div>
+              <div class="chat-bubble">I feel overwhelmed and unsure which session to book.</div>
+            </div>
+            <div class="chat-msg">
+              <div class="chat-msg-avatar">AI</div>
+              <div class="chat-bubble">I'm sorry you're feeling overwhelmed — that's a very understandable feeling, and reaching out is already a meaningful step.<br><br>For stress, anxiety, or emotional overload, many clients start with an <strong>Anxiety &amp; Stress Support</strong> consultation. This suggestion does not replace professional advice, but it can help you choose a starting point. Would you like to learn more or go straight to booking?</div>
+            </div>
+            <div class="chat-msg user">
+              <div class="chat-msg-avatar chat-user-avatar">U</div>
+              <div class="chat-bubble">Is my information kept private?</div>
+            </div>
+            <div class="chat-msg">
+              <div class="chat-msg-avatar">AI</div>
+              <div class="chat-bubble">Absolutely. In the final platform, your intake and booking details would be handled through secure, encrypted systems with strict privacy protections. Your information is never shared without your consent.</div>
+            </div>
+          </div>
+          <div class="chat-disclaimer">⚠️ This assistant provides guidance only — not diagnosis, therapy, or emergency support.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     THERAPIST PROFILES
+     ========================================== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Our Professionals</span>
+      <h2>Meet the Team</h2>
+      <p>Qualified, compassionate professionals committed to your privacy, comfort, and progress. All profiles shown are mock data for demonstration purposes.</p>
+    </div>
+    <div class="grid-3" style="margin-top:3rem;">
+      <div class="therapist-card">
+        <div class="avatar av-1">MR</div>
+        <h3>Dr. Maya Reynolds</h3>
+        <div class="therapist-credential">Licensed Mental Health Counselor · LMHC</div>
+        <p class="therapist-spec">Specializes in anxiety, stress management, and emotional resilience building</p>
+        <div class="therapist-meta">
+          <div class="t-meta-item"><span class="t-meta-value">8+ yrs</span>Experience</div>
+          <div class="t-meta-item"><span class="t-meta-value">Mon–Fri</span>Availability</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center;margin-bottom:1.25rem;">
+          <span class="tag tag-sage">Anxiety</span>
+          <span class="tag tag-slate">Stress</span>
+          <span class="tag">Resilience</span>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-sm btn-full">Book With Dr. Reynolds</a>
+      </div>
+      <div class="therapist-card">
+        <div class="avatar av-2">AC</div>
+        <h3>Alex Carter</h3>
+        <div class="therapist-credential">Certified Personal Support Coach · CPC</div>
+        <p class="therapist-spec">Focuses on life transitions, goal setting, career clarity, and personal growth</p>
+        <div class="therapist-meta">
+          <div class="t-meta-item"><span class="t-meta-value">5+ yrs</span>Experience</div>
+          <div class="t-meta-item"><span class="t-meta-value">Flexible</span>Availability</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center;margin-bottom:1.25rem;">
+          <span class="tag tag-slate">Life Coaching</span>
+          <span class="tag tag-sage">Career</span>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-sm btn-full">Book With Alex</a>
+      </div>
+      <div class="therapist-card">
+        <div class="avatar av-3">SB</div>
+        <h3>Sophia Bennett</h3>
+        <div class="therapist-credential">Relationship &amp; Wellness Therapist · LCPC</div>
+        <p class="therapist-spec">Expert in relationship communication, grief support, and work-life balance restoration</p>
+        <div class="therapist-meta">
+          <div class="t-meta-item"><span class="t-meta-value">10+ yrs</span>Experience</div>
+          <div class="t-meta-item"><span class="t-meta-value">Tue–Sat</span>Availability</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center;margin-bottom:1.25rem;">
+          <span class="tag">Relationships</span>
+          <span class="tag tag-blush">Grief</span>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-sm btn-full">Book With Sophia</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     BOOKING SECTION
+     ========================================== -->
+<section class="section booking-section" id="booking">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:3rem;">
+      <span class="eyebrow">Schedule Your Session</span>
+      <h2>Book an Appointment</h2>
+      <p>Select your service, choose a professional, and pick a time that works for you.</p>
+    </div>
+    <div class="booking-inner">
+      <div>
+        <!-- Progress Bar -->
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-step active" id="step1-pill">Booking</div>
+          <div class="progress-step" id="step2-pill">Intake</div>
+          <div class="progress-step" id="step3-pill">Payment</div>
+        </div>
+
+        <!-- Step 1: Booking Form -->
+        <div class="form-card" id="bookingForm">
+          <h3 style="margin-bottom:1.5rem;">Your Appointment Details</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Your full name" id="clientName">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="you@email.com" id="clientEmail">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+1 (555) 000-0000">
+            </div>
+            <div class="form-group">
+              <label>Select Service</label>
+              <select id="selectedService">
+                <option value="">Choose a service...</option>
+                <option value="Individual Counseling">Individual Counseling — $85</option>
+                <option value="Anxiety & Stress Support">Anxiety &amp; Stress Support — $85</option>
+                <option value="Relationship Guidance">Relationship Guidance — $110</option>
+                <option value="Personal Growth Coaching">Personal Growth Coaching — $75</option>
+                <option value="Grief & Life Transition Support">Grief &amp; Life Transition Support — $90</option>
+                <option value="Work-Life Balance Support">Work-Life Balance Support — $75</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Select Professional</label>
+              <select id="selectedTherapist">
+                <option value="">Choose a professional...</option>
+                <option value="Dr. Maya Reynolds">Dr. Maya Reynolds — LMHC</option>
+                <option value="Alex Carter">Alex Carter — CPC</option>
+                <option value="Sophia Bennett">Sophia Bennett — LCPC</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" id="selectedDate">
+            </div>
+            <div class="form-group full">
+              <label>Available Time Slots</label>
+              <div class="time-slots">
+                <div class="time-slot" onclick="selectTime(this, '10:00 AM')">10:00 AM</div>
+                <div class="time-slot" onclick="selectTime(this, '12:30 PM')">12:30 PM</div>
+                <div class="time-slot" onclick="selectTime(this, '2:00 PM')">2:00 PM</div>
+                <div class="time-slot" onclick="selectTime(this, '4:00 PM')">4:00 PM</div>
+                <div class="time-slot" onclick="selectTime(this, '6:00 PM')">6:00 PM</div>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Session Type</label>
+              <div class="session-types">
+                <div class="session-type selected" onclick="selectSessionType(this, 'Online Video')">🎥 Online Video</div>
+                <div class="session-type" onclick="selectSessionType(this, 'In-Person')">🏢 In-Person</div>
+                <div class="session-type" onclick="selectSessionType(this, 'Phone Call')">📞 Phone Call</div>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Additional Notes <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+              <textarea placeholder="Anything you'd like your professional to know before the session..."></textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-full" style="margin-top:1.5rem;" onclick="goToIntake()">Continue to Intake Form →</button>
+        </div>
+
+        <!-- Step 2: Intake Form -->
+        <div class="form-card form-section-hidden" id="intakeForm">
+          <h3 style="margin-bottom:1rem;">Private Client Intake Form</h3>
+          <div class="intake-disclaimer">
+            <strong>⚠️ Demo Notice:</strong> This is a proof-of-concept intake form. No real personal information should be submitted. In the final platform, forms would be securely encrypted and stored.
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="As on legal ID">
+            </div>
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input type="date">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+1 (555) 000-0000">
+            </div>
+            <div class="form-group full">
+              <label>Primary Reason for Seeking Support</label>
+              <textarea placeholder="Briefly describe what brings you to seek support at this time..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label>Current Emotional Concerns</label>
+              <textarea placeholder="What emotions or challenges have you been experiencing recently?"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Have you received counseling before?</label>
+              <select>
+                <option value="">Please select...</option>
+                <option>Yes — I have previous experience</option>
+                <option>No — This is my first time</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Communication Method</label>
+              <select>
+                <option value="">Please select...</option>
+                <option>Email</option>
+                <option>Phone Call</option>
+                <option>Text / SMS</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Emergency Contact Name</label>
+              <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+              <label>Emergency Contact Phone</label>
+              <input type="tel" placeholder="+1 (555) 000-0000">
+            </div>
+            <div class="form-group full">
+              <div class="consent-row">
+                <input type="checkbox" id="consentCheck">
+                <label for="consentCheck">I understand this is a demo intake form and no real information should be submitted. In a live environment, I would consent to the platform's privacy policy and terms of service.</label>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.8rem;color:var(--muted);margin:1.25rem 0;padding:0.85rem;background:var(--ivory);border-radius:var(--radius-sm);">🔒 Your information is treated with care and confidentiality. In the final platform, intake forms would be securely stored and protected according to applicable privacy requirements.</p>
+          <div style="display:flex;gap:1rem;">
+            <button class="btn btn-outline" onclick="goToBooking()">← Back</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="goToPayment()">Continue to Payment →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Payment Form -->
+        <div class="form-card form-section-hidden" id="paymentForm">
+          <h3 style="margin-bottom:1rem;">Secure Payment</h3>
+          <div class="payment-demo-notice">
+            ℹ️ <strong>Demo Notice:</strong> This is a proof of concept. No real payment will be processed.
+          </div>
+          <div class="payment-summary-box">
+            <div class="pay-row">
+              <span>Service</span>
+              <span id="payServiceName">Individual Counseling</span>
+            </div>
+            <div class="pay-row">
+              <span>Professional</span>
+              <span id="payTherapistName">Dr. Maya Reynolds</span>
+            </div>
+            <div class="pay-row">
+              <span>Session Fee</span>
+              <span id="payFee">$85.00</span>
+            </div>
+            <div class="pay-row">
+              <span>Platform Fee</span>
+              <span>$3.00</span>
+            </div>
+            <div class="pay-row total">
+              <span>Total</span>
+              <span id="payTotal">$88.00</span>
+            </div>
+          </div>
+          <div class="payment-methods">
+            <div class="payment-method selected" onclick="selectPayMethod(this)">💳 Credit / Debit Card</div>
+            <div class="payment-method" onclick="selectPayMethod(this)">🅿️ PayPal</div>
+            <div class="payment-method" onclick="selectPayMethod(this)">🏥 Insurance / Billing</div>
+          </div>
+          <div class="card-fields">
+            <div class="form-group card-number-field">
+              <label>Cardholder Name</label>
+              <input type="text" placeholder="Name as on card" id="cardHolder">
+            </div>
+            <div class="form-group card-number-field">
+              <label>Card Number</label>
+              <input type="text" placeholder="•••• •••• •••• ••••" maxlength="19">
+            </div>
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input type="text" placeholder="MM / YY" maxlength="7">
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" placeholder="•••" maxlength="4">
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:1.5rem;">
+            <button class="btn btn-outline" onclick="goToIntake2()">← Back</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="confirmPayment()">🔒 Pay &amp; Confirm Appointment</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Summary Sidebar -->
+      <div class="booking-summary">
+        <div class="summary-title">Appointment Summary</div>
+        <div class="summary-line">
+          <span class="summary-label">Service</span>
+          <span class="summary-value" id="summService">Not selected</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Professional</span>
+          <span class="summary-value" id="summTherapist">Not selected</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Date</span>
+          <span class="summary-value" id="summDate">Not selected</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Time</span>
+          <span class="summary-value" id="summTime">Not selected</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Format</span>
+          <span class="summary-value" id="summType">Online Video</span>
+        </div>
+        <div class="summary-total">
+          <span class="summary-total-label">Estimated Total</span>
+          <span class="summary-total-val" id="summTotal">—</span>
+        </div>
+        <div style="margin-top:1.25rem;padding:1rem;background:rgba(143,175,138,0.08);border-radius:var(--radius-sm);font-size:0.8rem;color:var(--muted);">
+          🔒 Your booking and intake details are handled privately. In the final platform, all data is encrypted and protected.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     CONFIRMATIONS SECTION
+     ========================================== -->
+<section class="section confirm-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">After You Book</span>
+      <h2>Automated Confirmations</h2>
+      <p>Once your appointment is confirmed, you'll receive immediate notifications across all relevant channels.</p>
+    </div>
+    <div class="confirm-grid">
+      <div class="confirm-card">
+        <div class="confirm-icon ci-green">📧</div>
+        <div>
+          <h4>Booking Confirmation Email</h4>
+          <p>Sent instantly to your registered email with your appointment details, therapist information, and a secure meeting link.</p>
+        </div>
+      </div>
+      <div class="confirm-card">
+        <div class="confirm-icon ci-blue">🧾</div>
+        <div>
+          <h4>Payment Receipt</h4>
+          <p>A clear, itemized receipt is emailed to you immediately after successful payment processing for your records.</p>
+        </div>
+      </div>
+      <div class="confirm-card">
+        <div class="confirm-icon ci-purple">🔔</div>
+        <div>
+          <h4>Session Reminder</h4>
+          <p>Automated reminders are sent 24 hours and 1 hour before your session via email or SMS based on your preference.</p>
+        </div>
+      </div>
+      <div class="confirm-card">
+        <div class="confirm-icon ci-green">📋</div>
+        <div>
+          <h4>Intake Form Confirmation</h4>
+          <p>You'll receive acknowledgment that your intake form was securely received and your therapist has been notified.</p>
+        </div>
+      </div>
+      <div class="confirm-card">
+        <div class="confirm-icon ci-blush">👩‍⚕️</div>
+        <div>
+          <h4>Therapist Notification</h4>
+          <p>Your chosen professional receives your booking details and intake summary to prepare for a meaningful first session.</p>
+        </div>
+      </div>
+    </div>
+    <div class="main-confirm-message">
+      <div class="main-confirm-icon">✉️</div>
+      <h3>Sample Confirmation Message</h3>
+      <p>Your appointment with <strong>Dr. Maya Reynolds</strong> for <strong>Anxiety &amp; Stress Support</strong> is confirmed for <strong>Wednesday at 4:00 PM</strong>. A secure meeting link and session reminder will be sent to your email before your session begins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     TESTIMONIALS
+     ========================================== -->
+<section class="section testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Client Experiences</span>
+      <h2>What Clients Say</h2>
+      <p style="color:rgba(255,255,255,0.5);">Initials only, to protect client privacy. All testimonials are illustrative mock data.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Booking my first session felt simple and reassuring. The process was clear, private, and professional. I wasn't sure what to expect, but everything was explained so well — I felt safe before we'd even spoken."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,var(--sage-lt),#A8C8A8);">A.R.</div>
+          <div>
+            <div class="author-name">A.R.</div>
+            <div class="author-tag">Anxiety &amp; Stress Support client</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The AI guide helped me choose the right session type. I was overwhelmed and didn't know where to start. It pointed me toward grief counseling and I finally feel like someone understood what I needed."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,var(--slate-lt),#A8C4DA);">M.T.</div>
+          <div>
+            <div class="author-name">M.T.</div>
+            <div class="author-tag">Grief &amp; Transition Support client</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I appreciated that the intake form was explained clearly. Knowing my information was handled privately made a real difference. The therapist was already prepared when we met — it felt personal and respectful."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,var(--lav-lt),#C8B8D8);">K.L.</div>
+          <div>
+            <div class="author-name">K.L.</div>
+            <div class="author-tag">Individual Counseling client</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"From booking to payment, the whole experience was seamless. The reminders were helpful, and the confirmation email came immediately. It's exactly the kind of calm, professional experience I needed before a first session."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,rgba(232,180,160,0.5),rgba(200,140,120,0.4));">D.S.</div>
+          <div>
+            <div class="author-name">D.S.</div>
+            <div class="author-tag">Work-Life Balance Support client</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     TRUST & SAFETY SECTION
+     ========================================== -->
+<section class="section trust-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Trust &amp; Safety</span>
+      <h2>Your Privacy &amp; Safety Come First</h2>
+      <p>The nature of counseling and therapy demands the highest standards of privacy, professionalism, and ethical care.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <div>
+          <h4>Confidential Client Experience</h4>
+          <p>All client interactions, intake forms, and sessions are handled with strict confidentiality.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🛡️</div>
+        <div>
+          <h4>Secure Appointment &amp; Payment Flow</h4>
+          <p>Booking and payment processes are designed with security at every step.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📋</div>
+        <div>
+          <h4>Private Intake Forms</h4>
+          <p>Intake information is collected securely and visible only to your designated professional.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🚨</div>
+        <div>
+          <h4>Clear Crisis Disclaimer</h4>
+          <p>The platform always directs emergency situations to appropriate crisis resources and services.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">👩‍⚕️</div>
+        <div>
+          <h4>Human-Led Professional Support</h4>
+          <p>All counseling and therapy is delivered by qualified, credentialed human professionals.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✨</div>
+        <div>
+          <h4>AI Used Only for Guidance</h4>
+          <p>The AI assistant guides navigation only — it does not diagnose, treat, or replace professional care.</p>
+        </div>
+      </div>
+    </div>
+    <div class="trust-statement">
+      <strong>Important Notice:</strong> The AI assistant is designed to support navigation and general guidance only. It does not provide diagnosis, emergency intervention, or professional medical advice. All actual counseling and therapy is provided by licensed, qualified human professionals. This platform is not a substitute for licensed medical or mental health care.
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     FAQ
+     ========================================== -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Common Questions</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know before your first session.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is my information kept private?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">In the final platform, all client information is handled with the utmost confidentiality. Intake forms, booking details, and session notes are stored securely and accessible only to your assigned professional and authorized staff. We do not share your information with third parties without your explicit consent.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I book an appointment online?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes. The entire booking process is completed online — you can select a service, choose a professional, pick an available time slot, complete the intake form, and confirm payment all within this platform, at any time that's convenient for you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I need to pay before the session?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes, payment is completed as part of the booking confirmation. This ensures your appointment is fully secured and your professional is notified immediately. A receipt will be emailed to you right away.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I reschedule or cancel?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes. In the final platform, you'll be able to reschedule or cancel appointments according to the platform's cancellation policy. We recommend notifying us at least 24 hours in advance to avoid cancellation fees and allow your professional to offer the slot to another client.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does the AI assistant replace a therapist?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Absolutely not. Serenity AI is a guidance tool only. It helps you navigate services, understand booking steps, and prepare for intake — nothing more. All actual therapy, counseling, and professional support is delivered entirely by qualified human professionals.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What happens after I submit the intake form?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Your intake form is securely received and reviewed by your assigned professional before your first session. You'll receive a confirmation email acknowledging receipt. Your professional uses this information to prepare a thoughtful, relevant approach for your session.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What should I do in an emergency?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">If you are in immediate danger, experiencing a mental health crisis, or may harm yourself or others, please contact local emergency services (such as 911 in the US) or a crisis helpline immediately. This platform and its AI assistant cannot provide emergency support. In the US, you can also reach the 988 Suicide and Crisis Lifeline by calling or texting 988.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     CONTACT SECTION
+     ========================================== -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div>
+        <span class="eyebrow">Get in Touch</span>
+        <h2>Contact &amp; Consultation</h2>
+        <p>Have a question before booking? Reach out and a member of our team will respond within one business day.</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <h4>Email Us</h4>
+              <p>hello@serenitysupport.ai</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Call Us</h4>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Office Location</h4>
+              <p>123 Wellness Avenue, Suite 200<br>New York, NY 10001</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <h4>Business Hours</h4>
+              <p>Monday – Friday, 9:00 AM – 6:00 PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-card">
+        <h3 style="margin-bottom:1.5rem;">Request a Consultation</h3>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@email.com">
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>Subject</label>
+          <input type="text" placeholder="How can we help?">
+        </div>
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label>Message</label>
+          <textarea placeholder="Tell us a bit about what you're looking for..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="showContactConfirm()">Send Message</button>
+        <p id="contactConfirm" style="display:none;text-align:center;margin-top:1rem;color:var(--sage);font-size:0.88rem;font-weight:600;">✓ Message received. We'll be in touch within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <span class="nav-logo-dot" style="background:linear-gradient(135deg,var(--sage-lt),var(--slate-lt));"></span>
+          Serenity Support AI
+        </div>
+        <p class="footer-desc">A professional digital platform for counseling, therapy, emotional wellness, and personal support — where care meets clarity.</p>
+        <div class="footer-emergency">
+          🚨 <strong style="color:rgba(255,255,255,0.6);">Emergency:</strong> If you are in crisis or immediate danger, please contact emergency services (911) or a crisis helpline immediately. This platform does not provide emergency support.
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#ai-support">AI Support</a>
+        <a href="#booking">Book a Session</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact Us</a>
+        <a href="#testimonials">Client Reviews</a>
+        <a href="#">Reschedule</a>
+        <a href="#">Billing Help</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Serenity Support AI. All rights reserved. This is a proof-of-concept demo. No real services are being offered.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==========================================
+     FLOATING CHAT WIDGET
+     ========================================== -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div>
+        <div class="chat-panel-title">✨ Serenity AI</div>
+        <div class="chat-panel-sub"><span class="chat-status-dot"></span>Guidance assistant — not a therapist</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message">
+        <div class="chat-msg-av">AI</div>
+        <div class="chat-message-text">Hi, I'm Serenity AI. I can help you understand services, booking steps, and intake preparation. I do not provide diagnosis or emergency support. How can I help you today?</div>
+      </div>
+    </div>
+    <div class="chat-quick-btns">
+      <button class="quick-btn" onclick="sendQuickMsg('Which service should I choose?')">Which service should I choose?</button>
+      <button class="quick-btn" onclick="sendQuickMsg('How do I book a session?')">How do I book?</button>
+      <button class="quick-btn" onclick="sendQuickMsg('Is my information private?')">Is my info private?</button>
+      <button class="quick-btn" onclick="sendQuickMsg('Can I pay online?')">Can I pay online?</button>
+      <button class="quick-btn" onclick="sendQuickMsg('I need urgent help')">I need urgent help</button>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" placeholder="Type your question..." id="chatInput" onkeydown="if(event.key==='Enter')sendChatMsg()">
+      <button class="chat-send" onclick="sendChatMsg()">➤</button>
+    </div>
+    <div class="chat-crisis-note">⚠️ For emergencies, contact 911 or call 988 (Crisis Lifeline)</div>
+  </div>
+  <button class="chat-btn" onclick="toggleChat()" id="chatToggleBtn">
+    <span id="chatBtnIcon">💬</span>
+    <span class="chat-badge" id="chatBadge">1</span>
+  </button>
+</div>
+
+<!-- ==========================================
+     SUCCESS OVERLAY
+     ========================================== -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">✅</div>
+    <h2>Appointment Confirmed</h2>
+    <p>Your session has been successfully booked and confirmed.</p>
+    <div class="success-details">
+      <div class="success-detail-row">
+        <span>Professional</span>
+        <span id="confirmedTherapist">Dr. Maya Reynolds</span>
+      </div>
+      <div class="success-detail-row">
+        <span>Service</span>
+        <span id="confirmedService">Individual Counseling</span>
+      </div>
+      <div class="success-detail-row">
+        <span>Status</span>
+        <span style="color:#3A7040;">✓ Confirmed</span>
+      </div>
+      <div class="success-detail-row">
+        <span>Payment</span>
+        <span style="color:#3A7040;">✓ Successful (Demo)</span>
+      </div>
+      <div class="success-detail-row">
+        <span>Intake Form</span>
+        <span style="color:#3A7040;">✓ Received</span>
+      </div>
+      <div class="success-detail-row">
+        <span>Confirmation Email</span>
+        <span style="color:#3A7040;">✓ Sent</span>
+      </div>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">A meeting link and reminder will be sent before your session. This is a demo — no real appointment has been made.</p>
+    <button class="btn btn-primary btn-full" style="margin-top:1.5rem;" onclick="closeSuccess()">Back to Home</button>
+  </div>
+</div>
+
+<!-- ==========================================
+     JAVASCRIPT
+     ========================================== -->
+<script>
+// ---- NAVIGATION ----
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ---- TIME SLOT SELECTION ----
+let selectedTime = '';
+function selectTime(el, time) {
+  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime = time;
+  document.getElementById('summTime').textContent = time;
+}
+
+// ---- SESSION TYPE ----
+let selectedSessionType = 'Online Video';
+function selectSessionType(el, type) {
+  document.querySelectorAll('.session-type').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSessionType = type;
+  document.getElementById('summType').textContent = type;
+}
+
+// ---- PAYMENT METHOD ----
+function selectPayMethod(el) {
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ---- LIVE SUMMARY UPDATE ----
+const pricingMap = {
+  'Individual Counseling': 85,
+  'Anxiety & Stress Support': 85,
+  'Relationship Guidance': 110,
+  'Personal Growth Coaching': 75,
+  'Grief & Life Transition Support': 90,
+  'Work-Life Balance Support': 75
+};
+
+document.getElementById('selectedService').addEventListener('change', function() {
+  const val = this.value;
+  document.getElementById('summService').textContent = val || 'Not selected';
+  if (pricingMap[val]) {
+    document.getElementById('summTotal').textContent = '$' + (pricingMap[val] + 3).toFixed(2);
+    document.getElementById('payServiceName').textContent = val;
+    document.getElementById('payFee').textContent = '$' + pricingMap[val].toFixed(2);
+    document.getElementById('payTotal').textContent = '$' + (pricingMap[val] + 3).toFixed(2);
+  } else {
+    document.getElementById('summTotal').textContent = '—';
+  }
+});
+
+document.getElementById('selectedTherapist').addEventListener('change', function() {
+  document.getElementById('summTherapist').textContent = this.value || 'Not selected';
+  document.getElementById('payTherapistName').textContent = this.value || '—';
+});
+
+document.getElementById('selectedDate').addEventListener('change', function() {
+  if (this.value) {
+    const d = new Date(this.value + 'T00:00:00');
+    document.getElementById('summDate').textContent = d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
+  }
+});
+
+// ---- BOOKING FORM FLOW ----
+function setProgress(step) {
+  const pills = ['step1-pill','step2-pill','step3-pill'];
+  pills.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','done');
+    if (i < step - 1)      el.classList.add('done');
+    else if (i === step - 1) el.classList.add('active');
+  });
+}
+
+function goToIntake() {
+  document.getElementById('bookingForm').classList.add('form-section-hidden');
+  document.getElementById('intakeForm').classList.remove('form-section-hidden');
+  setProgress(2);
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+
+function goToBooking() {
+  document.getElementById('intakeForm').classList.add('form-section-hidden');
+  document.getElementById('bookingForm').classList.remove('form-section-hidden');
+  setProgress(1);
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+
+function goToPayment() {
+  document.getElementById('intakeForm').classList.add('form-section-hidden');
+  document.getElementById('paymentForm').classList.remove('form-section-hidden');
+  setProgress(3);
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+
+function goToIntake2() {
+  document.getElementById('paymentForm').classList.add('form-section-hidden');
+  document.getElementById('intakeForm').classList.remove('form-section-hidden');
+  setProgress(2);
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+
+function confirmPayment() {
+  const therapist = document.getElementById('selectedTherapist').value || 'Dr. Maya Reynolds';
+  const service   = document.getElementById('selectedService').value  || 'Individual Counseling';
+  document.getElementById('confirmedTherapist').textContent = therapist;
+  document.getElementById('confirmedService').textContent   = service;
+  document.getElementById('successOverlay').classList.add('open');
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').classList.remove('open');
+  // Reset forms
+  document.getElementById('paymentForm').classList.add('form-section-hidden');
+  document.getElementById('intakeForm').classList.add('form-section-hidden');
+  document.getElementById('bookingForm').classList.remove('form-section-hidden');
+  setProgress(1);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---- FAQ ACCORDION ----
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ---- CHAT WIDGET ----
+let chatOpen = false;
+const chatResponses = {
+  'Which service should I choose?': "Based on what you share, I can suggest a starting category. For anxiety, stress, or emotional overload — try Anxiety & Stress Support. For relationship challenges, Relationship Guidance may fit. For personal direction, Personal Growth Coaching is a popular choice. A licensed professional will make the actual recommendation during your session.",
+  'How do I book a session?': "It's simple: select a service above, choose a professional, pick an available time slot, complete the private intake form, and confirm your payment. You'll receive an immediate booking confirmation by email.",
+  'Is my information private?': "Absolutely. In the final platform, your intake and booking details are handled through secure, encrypted systems with strict privacy protections. Your information is never shared without your explicit consent.",
+  'Can I pay online?': "Yes. Payment is completed securely as part of the booking process. You can pay by credit/debit card, PayPal, or arrange insurance/manual billing. A receipt is sent immediately.",
+  'I need urgent help': "⚠️ If you are in immediate danger or experiencing a mental health crisis, please contact emergency services (911) or the 988 Suicide & Crisis Lifeline by calling or texting 988 immediately. This AI assistant cannot provide emergency support. Please reach out to a professional or trusted person right now."
+};
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  document.getElementById('chatBtnIcon').textContent = chatOpen ? '✕' : '💬';
+  document.getElementById('chatBadge').style.display = chatOpen ? 'none' : 'flex';
+}
+
+function sendQuickMsg(msg) {
+  appendChatMsg(msg, true);
+  setTimeout(() => {
+    const reply = chatResponses[msg] || "Thank you for reaching out. A team member will be happy to help you with that. You can also use the booking form above to get started.";
+    appendChatMsg(reply, false);
+  }, 700);
+}
+
+function sendChatMsg() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  appendChatMsg(msg, true);
+  setTimeout(() => {
+    // Simple keyword matching
+    let reply = "Thank you for your message. I'm here to help with general guidance about services, booking, and intake preparation. For specific concerns, our team is available at hello@serenitysupport.ai. If this is an emergency, please contact 911 or the 988 Crisis Lifeline immediately.";
+    const lower = msg.toLowerCase();
+    if (lower.includes('service') || lower.includes('choose') || lower.includes('which'))
+      reply = chatResponses['Which service should I choose?'];
+    else if (lower.includes('book') || lower.includes('appointment') || lower.includes('schedule'))
+      reply = chatResponses['How do I book a session?'];
+    else if (lower.includes('private') || lower.includes('privacy') || lower.includes('confidential'))
+      reply = chatResponses['Is my information private?'];
+    else if (lower.includes('pay') || lower.includes('cost') || lower.includes('price') || lower.includes('fee'))
+      reply = chatResponses['Can I pay online?'];
+    else if (lower.includes('urgent') || lower.includes('crisis') || lower.includes('emergency') || lower.includes('harm') || lower.includes('suicide'))
+      reply = chatResponses['I need urgent help'];
+    else if (lower.includes('anxiety') || lower.includes('stress') || lower.includes('overwhelm'))
+      reply = "I hear that you're feeling overwhelmed. For anxiety and stress, many clients find our Anxiety & Stress Support service a helpful starting point. Remember, the AI cannot provide therapy — but a licensed professional can. Would you like to book a consultation?";
+    appendChatMsg(reply, false);
+  }, 800);
+}
+
+function appendChatMsg(text, isUser) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'chat-message' + (isUser ? ' user-msg' : '');
+  div.innerHTML = `
+    <div class="chat-msg-av ${isUser ? 'chat-user-av' : ''}">${isUser ? 'U' : 'AI'}</div>
+    <div class="chat-message-text">${text}</div>
+  `;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ---- CONTACT FORM ----
+function showContactConfirm() {
+  document.getElementById('contactConfirm').style.display = 'block';
+  setTimeout(() => { document.getElementById('contactConfirm').style.display = 'none'; }, 5000);
+}
+
+// ---- SCROLL ANIMATION (gentle fade-in) ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-card, .step-card, .therapist-card, .confirm-card, .testimonial-card, .trust-item, .problem-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
